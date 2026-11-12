@@ -1,0 +1,32 @@
+name: build
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - uses: gradle/actions/wrapper-validation@v6
+      - uses: actions/setup-java@v5
+        with:
+          java-version: '25'
+          distribution: 'microsoft'
+      - run: chmod +x ./gradlew
+      - name: build
+        run: ./gradlew build
+      - uses: actions/upload-artifact@v7
+        with:
+          name: blueprint-builder
+          path: build/libs/*.jar
+      - name: publish release (easy download)
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: Blueprint Builder build ${{ github.run_number }}
+          files: build/libs/blueprint-builder-*.jar

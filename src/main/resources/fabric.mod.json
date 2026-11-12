@@ -1,0 +1,20 @@
+{
+	"schemaVersion": 1,
+	"id": "blueprint_builder",
+	"version": "${version}",
+	"name": "Blueprint Builder",
+	"description": "Load .schem / .litematic / .nbt builds from a file or link, see the material list, preview it as a ghost blueprint layer by layer, and build it automatically.",
+	"authors": ["Pic"],
+	"license": "MIT",
+	"icon": "assets/blueprint_builder/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": ["dev.pic.blueprint.BlueprintMod"]
+	},
+	"depends": {
+		"fabricloader": ">=0.20.1",
+		"minecraft": "~26.2",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
